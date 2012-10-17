@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{8C559B06-0A4C-4EC7-8030-A6A4A50F2E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Core", "IdentityService.Core\IdentityService.Core.csproj", "{475575AB-D954-4F7B-BC72-72F592DA39E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C559B06-0A4C-4EC7-8030-A6A4A50F2E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C559B06-0A4C-4EC7-8030-A6A4A50F2E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C559B06-0A4C-4EC7-8030-A6A4A50F2E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C559B06-0A4C-4EC7-8030-A6A4A50F2E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{475575AB-D954-4F7B-BC72-72F592DA39E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{475575AB-D954-4F7B-BC72-72F592DA39E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{475575AB-D954-4F7B-BC72-72F592DA39E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{475575AB-D954-4F7B-BC72-72F592DA39E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
