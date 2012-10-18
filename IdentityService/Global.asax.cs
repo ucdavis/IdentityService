@@ -32,7 +32,6 @@ namespace IdentityService
 
             // Uncomment this to add application/json to the media type mappings by default.
            // GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("a", "b", "application/json"));
-
         }
     }
 }

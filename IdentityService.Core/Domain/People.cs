@@ -7,7 +7,7 @@ namespace IdentityService.Core.Domain
 
     [Serializable]
     [JsonObject]
-    public class People : DomainObjectWithTypedId<string>
+    public class People : DomainObject
     {
         public virtual string KerberosId { get; set; }
         public virtual string PpsId { get; set; }
@@ -23,7 +23,7 @@ namespace IdentityService.Core.Domain
         public virtual string DisplayMiddleName { get; set; }
         public virtual string DisplayLastName { get; set; }
         public virtual string DisplaySuffix { get; set; }
-        public virtual string DisplayName { get; set; }
+        public virtual string DisplayFullName { get; set; }
         public virtual string EmailAddress { get; set; }
         public virtual string PhoneNumber { get; set; }
         public virtual bool IsFaculty { get; set; }
@@ -58,7 +58,7 @@ namespace IdentityService.Core.Domain
             Map(x => x.DisplayMiddleName);
             Map(x => x.DisplayLastName);
             Map(x => x.DisplaySuffix);
-            Map(x => x.DisplayName).Column("DisplayFullName");
+            Map(x => x.DisplayFullName);
             Map(x => x.EmailAddress);
             Map(x => x.PhoneNumber);
             Map(x => x.IsFaculty);
