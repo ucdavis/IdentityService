@@ -89,15 +89,18 @@ namespace IdentityService.Controllers
                 queryOptions = new IdentitySearchQueryOptions();
             }
 
-            var searchString = queryOptions.SearchString;
-            var searchMethod = (String.IsNullOrEmpty(queryOptions.SearchMethod) ? "Search" : queryOptions.SearchMethod);
-            var numItemsPerPage = (queryOptions.NumItemsPerPage == 0 ? 5 : queryOptions.NumItemsPerPage);
-            var pageNumber = (queryOptions.PageNumber == 0 ? 1 : queryOptions.PageNumber);
-
             using (var conn = _dbService.GetConnection())
             {
-                var queryString = "EXEC usp_IAMSearch "+ searchString + ", " + searchMethod + ", " +  numItemsPerPage + ", " + pageNumber;
-                people = conn.Query<dynamic>(queryString).AsQueryable();
+                people = conn.Query<dynamic>("EXEC usp_IAMSearch @SearchString = @searchString, " +
+                                             "@SearchMethod = @searchMethod, " +
+                                             "@NumItemsPerPage = @numItemsPerPage, " +
+                                             "@PageNumber = @pageNumber ", 
+                    new { 
+                        searchString = (string)queryOptions.SearchString, 
+                        searchMethod = (string)(String.IsNullOrEmpty(queryOptions.SearchMethod) ? "Search" : queryOptions.SearchMethod),
+                        numItemsPerPage = (int)(queryOptions.NumItemsPerPage == 0 ? 5 : queryOptions.NumItemsPerPage),
+                        pageNumber = (int)(queryOptions.PageNumber == 0 ? 1 : queryOptions.PageNumber)}
+                    ).AsQueryable();
             }
 
             if (!people.Any())
