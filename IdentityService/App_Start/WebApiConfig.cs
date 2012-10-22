@@ -12,7 +12,7 @@ namespace IdentityService
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{searchString}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { searchString = RouteParameter.Optional }
             );
         }
     }

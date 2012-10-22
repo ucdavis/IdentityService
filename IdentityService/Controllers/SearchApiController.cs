@@ -143,7 +143,10 @@ namespace IdentityService.Controllers
             {
                 //Means json IdentitySearchQueryOptions were not provided in body of request.
                 //queryOptions = new IdentitySearchQueryOptions();
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new {Error = "No Query Parameters Present!"});
+                
+                var retval = Request.CreateResponse(HttpStatusCode.BadRequest, new ErrorMessage(){Error = "No JSON Query Options provided!"});
+                
+                return retval;
             }
 
             using (var conn = _dbService.GetConnection())
@@ -169,5 +172,10 @@ namespace IdentityService.Controllers
         }
 
       
+    }
+
+    public class ErrorMessage
+    {
+        public string Error { get; set; }
     }
 }
