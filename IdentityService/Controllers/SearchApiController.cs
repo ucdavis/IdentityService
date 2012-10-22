@@ -87,6 +87,7 @@ namespace IdentityService.Controllers
         //    return Request.CreateResponse(HttpStatusCode.OK, people);
         //}
 
+        // GET api/SearchApi/{KerberosId (as SearchString)}, since defaullt searchMethod is "GetBy(Kerberos)Id"
         //// GET api/SearchApi/?SearchString=searchString {&SearchMethod=searchMethod(GetById)}{,&NumItemsPerPage=numItemsPerPage(5)}{,&PageNumber=pageNumber(1)}]
         public HttpResponseMessage Get(string searchString, string searchMethod = "GetById", int numItemsPerPage = 5, int pageNumber = 1)
         {
