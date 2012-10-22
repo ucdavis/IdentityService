@@ -68,6 +68,61 @@ namespace IdentityService.Controllers
             return queryOptions.ApplyTo(_peopleRepository.Queryable) as IQueryable<People>;
         }
 
+        //Replaced by multi parameter query string get.  See method below this one.
+        //// GET api/SearchApi/{KerberosId}
+        //public HttpResponseMessage Get(string id)
+        //{
+        //    // Need to return a list because some peole have multiple rows because of some one-to-many relationships
+        //    // such as StudentId, PPS Id, etc.
+        //    IList<People> people = new List<People>();
+
+        //    people = _peopleRepository.Queryable.Where(p => p.KerberosId.Equals(id)).OrderBy(p => p.Id).ToList();
+
+
+        //    if (people.Count == 0)
+        //    {
+        //        return new HttpResponseMessage(HttpStatusCode.NotFound);
+        //    }
+
+        //    return Request.CreateResponse(HttpStatusCode.OK, people);
+        //}
+
+        //// GET api/SearchApi/?SearchString=searchString {&SearchMethod=searchMethod(GetById)}{,&NumItemsPerPage=numItemsPerPage(5)}{,&PageNumber=pageNumber(1)}]
+        public HttpResponseMessage Get(string searchString, string searchMethod = "GetById", int numItemsPerPage = 5, int pageNumber = 1)
+        {
+            // Need to return a list because some peole have multiple rows because of some one-to-many relationships
+            // such as StudentId, PPS Id, etc.
+            IList<People> people = new List<People>();
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+            else if (searchMethod.Equals("GetById"))
+            {
+                people = _peopleRepository.Queryable.Where(p => p.KerberosId.Equals(searchString)).OrderBy(p => p.Id).ToList();
+
+                if (people.Count == 0)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, people);
+            }
+            else
+            {
+                var queryOptions = new IdentitySearchQueryOptions
+                                       {
+                                           SearchString = searchString,
+                                           SearchMethod = searchMethod,
+                                           NumItemsPerPage = numItemsPerPage,
+                                           PageNumber = pageNumber
+                                       };
+
+                return Get(queryOptions);
+            }  
+        }
+
         /// <summary>
         /// Given a JSON IdentitySearchQueryOptions sent in the request body,
         /// return the matching results.
@@ -86,7 +141,8 @@ namespace IdentityService.Controllers
             if (queryOptions == null)
             {
                 //Means json IdentitySearchQueryOptions were not provided in body of request.
-                queryOptions = new IdentitySearchQueryOptions();
+                //queryOptions = new IdentitySearchQueryOptions();
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new {Error = "No Query Parameters Present!"});
             }
 
             using (var conn = _dbService.GetConnection())
@@ -94,7 +150,7 @@ namespace IdentityService.Controllers
                 people = conn.Query<dynamic>("EXEC usp_IAMSearch @SearchString = @searchString, " +
                                              "@SearchMethod = @searchMethod, " +
                                              "@NumItemsPerPage = @numItemsPerPage, " +
-                                             "@PageNumber = @pageNumber ", 
+                                             "@PageNumber = @pageNumber", 
                     new { 
                         searchString = (string)queryOptions.SearchString, 
                         searchMethod = (string)(String.IsNullOrEmpty(queryOptions.SearchMethod) ? "Search" : queryOptions.SearchMethod),
@@ -111,22 +167,6 @@ namespace IdentityService.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, people);
         }
 
-        // GET api/SearchApi/{KerberosId}
-        public HttpResponseMessage Get(string id)
-        {
-            // Need to return a list because some peole have multiple rows because of some one-to-many relationships
-            // such as StudentId, PPS Id, etc.
-            IList<People> people = new List<People>();
-
-            people = _peopleRepository.Queryable.Where(p => p.KerberosId.Equals(id)).OrderBy(p => p.Id).ToList();
-            
-
-            if (people.Count == 0)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK, people);
-        }
+      
     }
 }
