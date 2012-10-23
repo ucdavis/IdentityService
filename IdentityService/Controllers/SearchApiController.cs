@@ -170,8 +170,6 @@ namespace IdentityService.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, people);
         }
-
-      
     }
 
     public class ErrorMessage

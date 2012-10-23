@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
@@ -9,6 +10,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using WebApiContrib.MessageHandlers;
 
 namespace IdentityService
 {
@@ -22,7 +24,10 @@ namespace IdentityService
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //MVC Filters
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            // HTTP Filters:
+            FilterConfig.RegisterGlobalFilters(GlobalConfiguration.Configuration.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
@@ -32,6 +37,11 @@ namespace IdentityService
 
             // Uncomment this to add application/json to the media type mappings by default.
            // GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("a", "b", "application/json"));
+
+            // Add require https check message handler if appSettings RequireHttps is true:
+            var requireHttps = ConfigurationManager.AppSettings["RequireHttps"] as string;
+            if (!string.IsNullOrEmpty(requireHttps) && requireHttps.Equals("true"))
+                GlobalConfiguration.Configuration.MessageHandlers.Add(new RequireHttpsHandler());
         }
     }
 }

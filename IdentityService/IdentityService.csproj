@@ -190,7 +190,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MyAuthenticationFiter.cs" />
     <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
+    <Compile Include="App_Start\RequireHttpsHandler.cs" />
     <Compile Include="DebugTextWriter.cs" />
     <Compile Include="Services\DbService.cs" />
     <None Include="App_Start\NinjectWebCommon.cs" />
