@@ -193,6 +193,7 @@
     <Compile Include="App_Start\MyAuthenticationFiter.cs" />
     <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
     <Compile Include="App_Start\RequireHttpsHandler.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DebugTextWriter.cs" />
     <Compile Include="Services\DbService.cs" />
     <None Include="App_Start\NinjectWebCommon.cs" />
@@ -211,6 +212,12 @@
     <Compile Include="NinjectWebApiResolver.cs" />
     <Compile Include="NinjectWebApiScope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Css\common.css" />
+    <Content Include="Css\extended.css" />
+    <Content Include="Css\main.css" />
+    <Content Include="Views\Home\IdentitySearch.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Elmah.txt" />
@@ -286,7 +293,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -7,10 +7,19 @@ namespace IdentityService.Models
 {
     public class IdentitySearchQueryOptions
     {
-        private string _searchString = "postit";
+        public IDictionary<string, string> SearchMethods = new Dictionary<string, string>(); 
+        private string _searchString = "";
         public string SearchString { 
             get{ return _searchString; }
             set { _searchString = value; }
+        }
+
+        public IdentitySearchQueryOptions()
+        {
+            SearchMethods.Add(new KeyValuePair<string, string>("GetById", "Search by Kerberos Id"));
+            SearchMethods.Add(new KeyValuePair<string, string>("GetByEmail", "Search by Email Address"));
+            SearchMethods.Add(new KeyValuePair<string, string>("GetUnique", "Search by Kerberos or Email"));
+            SearchMethods.Add(new KeyValuePair<string, string>("Search", "'LIKE' based Search of Kerberos or Email or Display Name"));
         }
 
         private string _searchMethod = "GetById";

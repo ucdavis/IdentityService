@@ -1,0 +1,63 @@
+﻿@model System.Linq.EnumerableQuery<IdentityService.Core.Domain.People>
+
+@{
+    ViewBag.Title = "Search Results";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@{
+    <h2>Search Results</h2>
+    <fieldset class="display-form">
+        <legend style="font-weight: bold; font-size: large;">People</legend>
+        <ul>
+            @foreach (var p in @Model)
+            {
+                <hr />
+                
+                <li>
+                    <div>
+                        
+                        @Html.Label(@p.Id.ToString() + " - " + "Display Name:")
+                        @p.DisplayFullName
+                    </div>
+                </li>
+                if (!string.IsNullOrEmpty(@p.EmailAddress))
+                {
+                    <li>
+                        <div>
+                            @Html.Label("E-Mail:")
+                            @p.EmailAddress
+                        </div>
+                    </li>
+                }
+                if (!string.IsNullOrEmpty(@p.PhoneNumber)) {<li>
+                    <div>
+                        @Html.Label("Phone Number:")
+                        @p.PhoneNumber
+                    </div>
+                </li>}
+                
+                if (!string.IsNullOrEmpty(@p.KerberosId))
+                {
+                    <li>
+                        <div>
+                            @Html.Label("Kerberos Id:")
+                            @p.KerberosId
+                        </div>
+                    </li>
+                }
+                if (!string.IsNullOrEmpty(@p.PpsId))
+                {
+                    <li>
+                        <div>
+                            @Html.Label("Employee Id:")
+                            @p.PpsId
+                        </div>
+                    </li>
+                }
+            }
+            <hr/>
+        </ul>
+    </fieldset>
+
+}

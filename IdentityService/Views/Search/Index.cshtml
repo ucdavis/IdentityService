@@ -1,0 +1,44 @@
+﻿@model IdentityService.Models.IdentitySearchQueryOptions
+
+@{
+    ViewBag.Title = "People Search";
+}
+
+<h2>People Search</h2>
+<div>
+    <legend style="font-weight: bold; font-size: large;"></legend>
+    <fieldset class="display-form">
+        @using (Html.BeginForm("Details", "Search", FormMethod.Get))
+        {
+           <ul> @*begin IdentitySerachForm*@
+                <li style="font-weight: bold;">@Html.Label("Search String") <i>(Kerberos, Email or Display Name)</i></li>
+                
+                <li>
+                    <div class="editor-field">@Html.TextBoxFor(x => x.SearchString, new { id = "searchString", style = "width: 10em" })
+                    </div>
+                </li>
+
+                <li style="font-weight: bold;">@Html.Label("Search-By Method")</li>
+
+                <li>
+                    <div class="editor-field ui-widget" style="text-decoration: none !important;">
+                        @Html.DropDownListFor(x => x.SearchMethod, new SelectList(Model.SearchMethods, "Key", "Value", Model.SearchMethod ?? string.Empty), "--Select a Search Method--", new { id = "searchMethod" })
+                    </div>
+                </li>
+                 <li style="font-weight: bold;">@Html.Label("Max. Number of Items per Page")</li>
+                <li>
+                    <div class="editor-field">@Html.TextBoxFor(x => x.NumItemsPerPage, new { id = "numItemsPerPage", style = "width: 10em" })
+                    </div>
+                </li>
+                 <li style="font-weight: bold;">@Html.Label("Page Number to Return Out of Total Number of Pages")</li>
+                <li>
+                    <div class="editor-field">@Html.TextBoxFor(x => x.PageNumber, new { id = "pageNumber", style = "width: 10em" })
+                    </div>
+                </li>
+                <li>
+                    <button type="submit" value="Search" id="submit">Search</button>
+                </li>
+            </ul> //end IdentitySerachForm
+        }
+    </fieldset>
+</div>

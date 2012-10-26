@@ -1,27 +1,18 @@
-﻿using System;
+﻿using Dapper;
+using IdentityService.Core.Domain;
+using IdentityService.Models;
+using IdentityService.Services;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Data.Common;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
-using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
-using Dapper;
-using IdentityService.Models;
-using IdentityService.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using UCDArch.Core;
 using UCDArch.Core.PersistanceSupport;
-using IdentityService.Core.Domain;
 
 namespace IdentityService.Controllers
 {

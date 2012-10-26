@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Css("main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Css("extended.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
     @RenderBody()

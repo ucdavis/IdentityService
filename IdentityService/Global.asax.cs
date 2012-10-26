@@ -24,10 +24,16 @@ namespace IdentityService
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+
             //MVC Filters
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
             // HTTP Filters:
-            FilterConfig.RegisterGlobalFilters(GlobalConfiguration.Configuration.Filters);
+            // Add require API token Http filter if appSettings RequireApiToken is true:
+            var requireApiToken = ConfigurationManager.AppSettings["RequireApiToken"] as string;
+            if (!string.IsNullOrEmpty(requireApiToken) && requireApiToken.Equals("true"))
+                FilterConfig.RegisterGlobalFilters(GlobalConfiguration.Configuration.Filters);
+
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
